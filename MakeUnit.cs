@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
@@ -50,7 +50,7 @@ public class MakeUnit : MonoBehaviour
             try
             {
                 print("counter: " + counter + "balance: " + balance);
-                //gets token ID
+                //gets tokenID from contract
                 tokens[counter] = await EVM.Call(chain, network, contract, abi, method, "[\"" + account + "\" , \"" + i + "\"]");
                 string tokenId = tokens[counter];
 
@@ -64,7 +64,7 @@ public class MakeUnit : MonoBehaviour
                 else
                 {
 
-                    //gets Swat Name
+                    //gets Swat Name from contract
                     swatName = await EVM.Call(chain, network, contract, abi, "getSwatName", "[\"" + tokens[counter] + "\"]");
                     upgradeCount = await EVM.Call(chain, network, contract, abi, "getUpgradeCount", "[\"" + tokens[counter] + "\"]");
 
@@ -73,7 +73,7 @@ public class MakeUnit : MonoBehaviour
                     string unitName = swatName.Replace(" ", "");
                     print(unitName);
 
-
+                    //Updates Player UI
                     GameObject invCount = GameObject.Find(unitName + "count");
                     GameObject invObj = GameObject.Find(unitName + "_f");
                     invCount.GetComponent<TMPro.TextMeshProUGUI>().text = (int.Parse(invCount.GetComponent<TMPro.TextMeshProUGUI>().text) + 1).ToString();
